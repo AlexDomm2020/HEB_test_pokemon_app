@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_constants.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_strings.dart';
+import 'package:heb_test_pokemon_app/pokemonList/presentation/pokemon_cubit.dart';
 
 import '../../../domain/models/pokemon_model.dart';
 
 class PokeMainCard extends StatelessWidget {
-  PokeMainCard({Key? key, this.pokemon}) : super(key: key);
+  PokeMainCard({Key? key, this.pokemon, required this.isPokemonTeamFull})
+      : super(key: key);
 
   Pokemon? pokemon;
+  bool isPokemonTeamFull;
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +26,19 @@ class PokeMainCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: PokeConstants.getMediaQuery(context).width * 0.2,
-                  width: PokeConstants.getMediaQuery(context).width * 0.2,
+                  height: PokeConstants
+                      .getMediaQuery(context)
+                      .width * 0.2,
+                  width: PokeConstants
+                      .getMediaQuery(context)
+                      .width * 0.2,
                   color: Colors.white,
                   child: Image.network(pokemon!.sprites!.frontDefault!),
                 ),
                 SizedBox(
-                    width: PokeConstants.getMediaQuery(context).width * 0.01),
+                    width: PokeConstants
+                        .getMediaQuery(context)
+                        .width * 0.01),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,34 +48,47 @@ class PokeMainCard extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize:
-                                PokeConstants.getMediaQuery(context).width *
-                                    0.04),
+                            PokeConstants
+                                .getMediaQuery(context)
+                                .width *
+                                0.04),
                       ),
                       SizedBox(
-                          height: PokeConstants.getMediaQuery(context).width *
+                          height: PokeConstants
+                              .getMediaQuery(context)
+                              .width *
                               0.01),
                       Text(
                         PokeStrings.tipo,
                         style: TextStyle(
                           fontSize:
-                              PokeConstants.getMediaQuery(context).width * 0.03,
+                          PokeConstants
+                              .getMediaQuery(context)
+                              .width * 0.03,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(
-                          height: PokeConstants.getMediaQuery(context).width *
+                          height: PokeConstants
+                              .getMediaQuery(context)
+                              .width *
                               0.03),
                       Wrap(
                         runSpacing:
-                            PokeConstants.getMediaQuery(context).width * 0.02,
+                        PokeConstants
+                            .getMediaQuery(context)
+                            .width * 0.02,
                         spacing:
-                            PokeConstants.getMediaQuery(context).width * 0.02,
+                        PokeConstants
+                            .getMediaQuery(context)
+                            .width * 0.02,
                         children: List.generate(
                           pokemon!.types!.length,
-                          (index) => _skill(
-                            context,
-                            pokemon!.types![index].type!.name!,
-                          ),
+                              (index) =>
+                              _skill(
+                                context,
+                                pokemon!.types![index].type!.name!,
+                              ),
                         ),
                       ),
                     ],
@@ -76,30 +99,55 @@ class PokeMainCard extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              left: PokeConstants.getMediaQuery(context).width * 0.025,
-              right: PokeConstants.getMediaQuery(context).width * 0.025,
-              bottom: PokeConstants.getMediaQuery(context).width * 0.025,
+              left: PokeConstants
+                  .getMediaQuery(context)
+                  .width * 0.025,
+              right: PokeConstants
+                  .getMediaQuery(context)
+                  .width * 0.025,
+              bottom: PokeConstants
+                  .getMediaQuery(context)
+                  .width * 0.025,
             ),
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
-                    color: Colors.red[700],
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                          PokeConstants.getMediaQuery(context).width * 0.01),
-                      child: Text(
-                        PokeStrings.agregarEquipo,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: PokeConstants.getMediaQuery(context).width *
-                              0.035,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                      onTap: () {
+                        context.read<PokemonCubit>().addPokemon(pokemon!);
+                      },
+                      child: Container(
+                        color: !pokemon!.isAdded && !isPokemonTeamFull
+                            ? Colors.red[700]
+                            : Colors.transparent,
+                        child: Padding(
+                          padding: EdgeInsets.all(
+                              PokeConstants
+                                  .getMediaQuery(context)
+                                  .width *
+                                  0.01),
+                          child: Text(
+                            !pokemon!.isAdded && !isPokemonTeamFull
+                                ? PokeStrings.agregarEquipo
+                                : !isPokemonTeamFull
+                                ? PokeStrings.yaEsParteDeTuEquipo
+                                : PokeStrings.equipoCompleto,
+                            style: TextStyle(
+                              color: !pokemon!.isAdded && !isPokemonTeamFull
+                                  ? Colors.white
+                                  : pokemon!.isAdded || isPokemonTeamFull
+                                  ? Colors.red : Colors.red,
+                              fontSize:
+                              PokeConstants
+                                  .getMediaQuery(context)
+                                  .width *
+                                  0.035,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                      )),
                 )
               ],
             ),
@@ -116,16 +164,22 @@ class PokeMainCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: PokeConstants.getMediaQuery(context).width * 0.02,
+            width: PokeConstants
+                .getMediaQuery(context)
+                .width * 0.02,
           ),
           Text(
             typeName,
             style: TextStyle(
                 color: Colors.white,
-                fontSize: PokeConstants.getMediaQuery(context).width * 0.03),
+                fontSize: PokeConstants
+                    .getMediaQuery(context)
+                    .width * 0.03),
           ),
           SizedBox(
-            width: PokeConstants.getMediaQuery(context).width * 0.02,
+            width: PokeConstants
+                .getMediaQuery(context)
+                .width * 0.02,
           ),
         ],
       ),

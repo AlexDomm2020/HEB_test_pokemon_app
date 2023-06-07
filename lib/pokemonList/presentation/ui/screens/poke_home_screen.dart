@@ -16,121 +16,132 @@ class PokeHomeScreen extends StatefulWidget {
 
 class _PokeHomeScreenState extends State<PokeHomeScreen> {
   late ScrollController scrollController;
+  int? pokeCount;
 
   @override
   void initState() {
     scrollController = ScrollController()..addListener(handleScrolling);
-    context.read<PokemonCubit>().getPokemons('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0');
+    context
+        .read<PokemonCubit>()
+        .getPokemons('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0');
     super.initState();
   }
 
-  void handleScrolling(){
-    if(scrollController.offset == scrollController.position.maxScrollExtent){
+  void handleScrolling() async {
+    if (scrollController.offset == scrollController.position.maxScrollExtent) {
       final offset = context.read<PokemonCubit>().incrementOffset();
-      context.read<PokemonCubit>().getPokemons('https://pokeapi.co/api/v2/pokemon?limit=10&offset=$offset');
+      await context.read<PokemonCubit>().getPokemons(
+          'https://pokeapi.co/api/v2/pokemon?limit=10&offset=$offset');
+      scrollController.animateTo(
+        scrollController.offset + 100,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PokeAppBar(),
+      appBar: PokeAppBar(),
       body: BlocBuilder<PokemonCubit, PokemonState>(
         builder: (context, state) {
           if (state is PokemonLoading) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal:
-                  PokeConstants.getMediaQuery(context).width * 0.05),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: PokeConstants.getMediaQuery(context).width * 0.05,
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        PokeAssets.pc,
-                        height:
-                        PokeConstants.getMediaQuery(context).width * 0.125,
-                      ),
-                      SizedBox(
-                        width:
-                        PokeConstants.getMediaQuery(context).width * 0.05,
-                      ),
-                      Expanded(
-                        child: Text(
-                          PokeStrings.instruccionesHomeScreen,
-                          style: TextStyle(
-                            fontSize:
-                            PokeConstants.getMediaQuery(context).width *
-                                0.035,
-                            fontWeight: FontWeight.w500,
+            return SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal:
+                        PokeConstants.getMediaQuery(context).width * 0.05),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: PokeConstants.getMediaQuery(context).width * 0.05,
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          PokeAssets.pc,
+                          height: PokeConstants.getMediaQuery(context).width *
+                              0.125,
+                        ),
+                        SizedBox(
+                          width:
+                              PokeConstants.getMediaQuery(context).width * 0.05,
+                        ),
+                        Expanded(
+                          child: Text(
+                            PokeStrings.instruccionesHomeScreen,
+                            style: TextStyle(
+                              fontSize:
+                                  PokeConstants.getMediaQuery(context).width *
+                                      0.035,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: PokeConstants.getMediaQuery(context).width * 0.05,
-                  ),
-                  Expanded(
-                    child: Container(
+                      ],
+                    ),
+                    SizedBox(
+                      height: PokeConstants.getMediaQuery(context).width * 0.05,
+                    ),
+                    Expanded(
                       child: ListView.separated(
                         controller: scrollController,
                         separatorBuilder: (context, index) => SizedBox(
                           height:
-                          PokeConstants.getMediaQuery(context).width * 0.05,
+                              PokeConstants.getMediaQuery(context).width * 0.05,
                         ),
                         itemCount: state.lastPokemonList.length,
-                        itemBuilder: (context, index) => PokeMainCard(pokemon: state.lastPokemonList[index]),
+                        itemBuilder: (context, index) => PokeMainCard(
+                            pokemon: state.lastPokemonList[index],
+                            isPokemonTeamFull: state.isPokemonTeamFull),
                       ),
                     ),
-                  ),
-                  const LinearProgressIndicator()
-                ],
+                    const LinearProgressIndicator()
+                  ],
+                ),
               ),
             );
           }
           if (state is PokemonLoaded) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal:
-                      PokeConstants.getMediaQuery(context).width * 0.05),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: PokeConstants.getMediaQuery(context).width * 0.05,
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        PokeAssets.pc,
-                        height:
-                            PokeConstants.getMediaQuery(context).width * 0.125,
-                      ),
-                      SizedBox(
-                        width:
-                            PokeConstants.getMediaQuery(context).width * 0.05,
-                      ),
-                      Expanded(
-                        child: Text(
-                          PokeStrings.instruccionesHomeScreen,
-                          style: TextStyle(
-                            fontSize:
-                                PokeConstants.getMediaQuery(context).width *
-                                    0.035,
-                            fontWeight: FontWeight.w500,
+            return SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal:
+                        PokeConstants.getMediaQuery(context).width * 0.05),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: PokeConstants.getMediaQuery(context).width * 0.05,
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          PokeAssets.pc,
+                          height: PokeConstants.getMediaQuery(context).width *
+                              0.125,
+                        ),
+                        SizedBox(
+                          width:
+                              PokeConstants.getMediaQuery(context).width * 0.05,
+                        ),
+                        Expanded(
+                          child: Text(
+                            PokeStrings.instruccionesHomeScreen,
+                            style: TextStyle(
+                              fontSize:
+                                  PokeConstants.getMediaQuery(context).width *
+                                      0.035,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: PokeConstants.getMediaQuery(context).width * 0.05,
-                  ),
-                  Expanded(
-                    child: Container(
+                      ],
+                    ),
+                    SizedBox(
+                      height: PokeConstants.getMediaQuery(context).width * 0.05,
+                    ),
+                    Expanded(
                       child: ListView.separated(
                         controller: scrollController,
                         separatorBuilder: (context, index) => SizedBox(
@@ -138,11 +149,13 @@ class _PokeHomeScreenState extends State<PokeHomeScreen> {
                               PokeConstants.getMediaQuery(context).width * 0.05,
                         ),
                         itemCount: state.pokeList.length,
-                        itemBuilder: (context, index) => PokeMainCard(pokemon: state.pokeList[index]),
+                        itemBuilder: (context, index) => PokeMainCard(
+                            pokemon: state.pokeList[index],
+                            isPokemonTeamFull: state.isPokemonTeamFull),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             );
           }
