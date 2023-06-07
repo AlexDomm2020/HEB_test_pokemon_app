@@ -58,10 +58,7 @@ class PokeTeam extends StatelessWidget {
                                                   state.pokeList[index].name!,
                                                   style: TextStyle(
                                                     fontSize: PokeConstants
-                                                                .getMediaQuery(
-                                                                    context)
-                                                            .width *
-                                                        0.035,
+                                                                .getTextSizeMedium(context),
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -94,10 +91,7 @@ class PokeTeam extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: PokeConstants
-                                                                        .getMediaQuery(
-                                                                            context)
-                                                                    .width *
-                                                                0.035,
+                                                                        .getTextSizeMedium(context),
                                                           ),
                                                         ),
                                                       ),
@@ -124,8 +118,7 @@ class PokeTeam extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                    PokeConstants.getMediaQuery(context).width *
-                                        0.03),
+                                    PokeConstants.getTextSizeSmall(context)),
                           ),
                         ),
                   SizedBox(
@@ -144,9 +137,7 @@ class PokeTeam extends StatelessWidget {
                               child: Text(
                                 PokeStrings.cerrar,
                                 style: TextStyle(
-                                  fontSize: PokeConstants.getMediaQuery(context)
-                                          .width *
-                                      0.035,
+                                  fontSize: PokeConstants.getTextSizeMedium(context),
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -200,10 +191,7 @@ class PokeTeam extends StatelessWidget {
                                                 pokeTeam[index].name!,
                                                 style: TextStyle(
                                                   fontSize: PokeConstants
-                                                              .getMediaQuery(
-                                                                  context)
-                                                          .width *
-                                                      0.035,
+                                                              .getTextSizeMedium(context),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -236,10 +224,7 @@ class PokeTeam extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: PokeConstants
-                                                                      .getMediaQuery(
-                                                                          context)
-                                                                  .width *
-                                                              0.035,
+                                                                      .getTextSizeMedium(context),
                                                         ),
                                                       ),
                                                     ),
@@ -266,8 +251,7 @@ class PokeTeam extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize:
-                                  PokeConstants.getMediaQuery(context).width *
-                                      0.03),
+                                  PokeConstants.getTextSizeSmall(context)),
                         ),
                       ),
                 SizedBox(
@@ -287,8 +271,7 @@ class PokeTeam extends StatelessWidget {
                               PokeStrings.cerrar,
                               style: TextStyle(
                                 fontSize:
-                                    PokeConstants.getMediaQuery(context).width *
-                                        0.035,
+                                    PokeConstants.getTextSizeMedium(context),
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),

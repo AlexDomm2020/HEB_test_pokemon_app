@@ -73,8 +73,7 @@ class _PokeHomeScreenState extends State<PokeHomeScreen> {
                             PokeStrings.instruccionesHomeScreen,
                             style: TextStyle(
                               fontSize:
-                                  PokeConstants.getMediaQuery(context).width *
-                                      0.035,
+                                  PokeConstants.getTextSizeMedium(context),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -130,8 +129,7 @@ class _PokeHomeScreenState extends State<PokeHomeScreen> {
                             PokeStrings.instruccionesHomeScreen,
                             style: TextStyle(
                               fontSize:
-                                  PokeConstants.getMediaQuery(context).width *
-                                      0.035,
+                                  PokeConstants.getTextSizeMedium(context),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
