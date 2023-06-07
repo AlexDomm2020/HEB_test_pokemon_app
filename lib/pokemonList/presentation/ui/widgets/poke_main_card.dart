@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_constants.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_strings.dart';
 
+import '../../../domain/models/pokemon_model.dart';
+
 class PokeMainCard extends StatelessWidget {
-  const PokeMainCard({Key? key}) : super(key: key);
+  PokeMainCard({Key? key, this.pokemon}) : super(key: key);
+
+  Pokemon? pokemon;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class PokeMainCard extends StatelessWidget {
                   height: PokeConstants.getMediaQuery(context).width * 0.2,
                   width: PokeConstants.getMediaQuery(context).width * 0.2,
                   color: Colors.white,
+                  child: Image.network(pokemon!.sprites!.frontDefault!),
                 ),
                 SizedBox(
                     width: PokeConstants.getMediaQuery(context).width * 0.01),
@@ -29,7 +34,7 @@ class PokeMainCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Nombre: Bulbasaur',
+                        '${PokeStrings.nombre} ${pokemon!.name}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize:
@@ -40,11 +45,10 @@ class PokeMainCard extends StatelessWidget {
                           height: PokeConstants.getMediaQuery(context).width *
                               0.01),
                       Text(
-                        'Tipo: ',
+                        PokeStrings.tipo,
                         style: TextStyle(
                           fontSize:
-                              PokeConstants.getMediaQuery(context).width *
-                                  0.03,
+                              PokeConstants.getMediaQuery(context).width * 0.03,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -56,8 +60,13 @@ class PokeMainCard extends StatelessWidget {
                             PokeConstants.getMediaQuery(context).width * 0.02,
                         spacing:
                             PokeConstants.getMediaQuery(context).width * 0.02,
-                        children:
-                            List.generate(2, (index) => _skill(context)),
+                        children: List.generate(
+                          pokemon!.types!.length,
+                          (index) => _skill(
+                            context,
+                            pokemon!.types![index].type!.name!,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -100,7 +109,7 @@ class PokeMainCard extends StatelessWidget {
     );
   }
 
-  Widget _skill(BuildContext context) {
+  Widget _skill(BuildContext context, String typeName) {
     return Container(
       color: Colors.purple,
       child: Row(
@@ -110,7 +119,7 @@ class PokeMainCard extends StatelessWidget {
             width: PokeConstants.getMediaQuery(context).width * 0.02,
           ),
           Text(
-            'Poison',
+            typeName,
             style: TextStyle(
                 color: Colors.white,
                 fontSize: PokeConstants.getMediaQuery(context).width * 0.03),
