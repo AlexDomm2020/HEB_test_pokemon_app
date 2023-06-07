@@ -3,5 +3,7 @@ class PokeStrings {
   static const instruccionesHomeScreen = 'Selecciona hasta 5 Pokémons para agregarlos a tu equipo';
   static const agregarEquipo = 'Agregar a mi equipo';
   static const eliminarEquipo = 'Eliminar de mi equipo';
+  static const nombre = 'Nombre:';
+  static const tipo = 'Tipo:';
 
 }
