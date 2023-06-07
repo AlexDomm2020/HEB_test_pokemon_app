@@ -5,12 +5,14 @@ class Pokemon {
   String? url;
   Sprites? sprites;
   List<Type>? types;
+  bool isAdded;
 
   Pokemon({
     this.name,
     this.url,
     this.sprites,
     this.types,
+    this.isAdded = false
   });
 
   factory Pokemon.fromRawJson(String str) => Pokemon.fromJson(json.decode(str));
