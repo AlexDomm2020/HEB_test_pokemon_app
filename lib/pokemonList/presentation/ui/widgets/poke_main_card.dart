@@ -49,9 +49,7 @@ class PokeMainCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize:
                             PokeConstants
-                                .getMediaQuery(context)
-                                .width *
-                                0.04),
+                                .getTextSizeMediumLarge(context)),
                       ),
                       SizedBox(
                           height: PokeConstants
@@ -63,8 +61,7 @@ class PokeMainCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize:
                           PokeConstants
-                              .getMediaQuery(context)
-                              .width * 0.03,
+                              .getTextSizeSmall(context),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -139,9 +136,7 @@ class PokeMainCard extends StatelessWidget {
                                   ? Colors.red : Colors.red,
                               fontSize:
                               PokeConstants
-                                  .getMediaQuery(context)
-                                  .width *
-                                  0.035,
+                                  .getTextSizeMedium(context),
                               fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
@@ -173,8 +168,7 @@ class PokeMainCard extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white,
                 fontSize: PokeConstants
-                    .getMediaQuery(context)
-                    .width * 0.03),
+                    .getTextSizeSmall(context)),
           ),
           SizedBox(
             width: PokeConstants

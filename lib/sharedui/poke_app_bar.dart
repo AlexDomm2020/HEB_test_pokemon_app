@@ -23,11 +23,12 @@ class _PokeAppBarState extends State<PokeAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
+      title: Text(
         PokeStrings.intercambioPokemon,
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
+          fontSize: PokeConstants.getTextSizeLarge(context),
         ),
       ),
       actions: [
@@ -66,7 +67,7 @@ class _PokeAppBarState extends State<PokeAppBar> {
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize:
-                              PokeConstants.getMediaQuery(context).width * 0.04,
+                              PokeConstants.getTextSizeMediumLarge(context),
                         ),
                       ),
                     ),
