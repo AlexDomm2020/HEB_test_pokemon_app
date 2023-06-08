@@ -45,7 +45,6 @@ class _PokeAppBarState extends State<PokeAppBar> {
               child: Stack(
                 children: [
                   Container(
-                    color: Colors.white,
                     height: PokeConstants.getMediaQuery(context).height * 0.05,
                     width: PokeConstants.getMediaQuery(context).width * 0.13,
                     child: Image.asset(PokeAssets.pokeBall),

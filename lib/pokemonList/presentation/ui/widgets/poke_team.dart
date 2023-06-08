@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_strings.dart';
 import 'package:heb_test_pokemon_app/pokemonList/presentation/pokemon_cubit.dart';
+import 'package:heb_test_pokemon_app/pokemonList/presentation/ui/widgets/poke_team_card.dart';
 
 import '../../../../apputils/poke_constants.dart';
 
@@ -26,88 +27,9 @@ class PokeTeam extends StatelessWidget {
                   state.pokeList.isNotEmpty
                       ? Expanded(
                           child: ListView.separated(
-                              itemBuilder: (context, index) => Container(
-                                    color: Colors.grey[300],
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            color: Colors.white,
-                                            child: Image.network(
-                                              state.pokeList[index].sprites!
-                                                  .frontDefault!,
-                                              height:
-                                                  PokeConstants.getMediaQuery(
-                                                              context)
-                                                          .width *
-                                                      0.15,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: PokeConstants.getMediaQuery(
-                                                        context)
-                                                    .width *
-                                                0.015,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  state.pokeList[index].name!,
-                                                  style: TextStyle(
-                                                    fontSize: PokeConstants
-                                                        .getTextSizeMedium(
-                                                            context),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: PokeConstants
-                                                              .getMediaQuery(
-                                                                  context)
-                                                          .width *
-                                                      0.015,
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    pokeCubit.deletePokemon(
-                                                        state.pokeList[index]);
-                                                    pokeCubit.updatePokemonList(
-                                                        state.pokeList[index],
-                                                        false);
-                                                  },
-                                                  child: Container(
-                                                    color: Colors.red[700],
-                                                    child: Center(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2.0),
-                                                        child: Text(
-                                                          PokeStrings
-                                                              .eliminarEquipo,
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: PokeConstants
-                                                                .getTextSizeMedium(
-                                                                    context),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                              itemBuilder: (context, index) => PokeTeamCard(
+                                    pokeCubit: pokeCubit,
+                                    pokemon: state.pokeList[index],
                                   ),
                               separatorBuilder: (context, index) => SizedBox(
                                     height: PokeConstants.getMediaQuery(context)
@@ -163,87 +85,9 @@ class PokeTeam extends StatelessWidget {
                 pokeTeam.isNotEmpty
                     ? Expanded(
                         child: ListView.separated(
-                            itemBuilder: (context, index) => Container(
-                                  color: Colors.grey[300],
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          color: Colors.white,
-                                          child: Image.network(
-                                            pokeTeam[index]
-                                                .sprites!
-                                                .frontDefault!,
-                                            height: PokeConstants.getMediaQuery(
-                                                        context)
-                                                    .width *
-                                                0.15,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: PokeConstants.getMediaQuery(
-                                                      context)
-                                                  .width *
-                                              0.015,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                pokeTeam[index].name!,
-                                                style: TextStyle(
-                                                  fontSize: PokeConstants
-                                                      .getTextSizeMedium(
-                                                          context),
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height:
-                                                    PokeConstants.getMediaQuery(
-                                                                context)
-                                                            .width *
-                                                        0.015,
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  pokeCubit.updatePokemonList(
-                                                      pokeTeam[index], false);
-                                                  pokeCubit.deletePokemon(
-                                                      pokeTeam[index]);
-                                                },
-                                                child: Container(
-                                                  color: Colors.red[700],
-                                                  child: Center(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              2.0),
-                                                      child: Text(
-                                                        PokeStrings
-                                                            .eliminarEquipo,
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: PokeConstants
-                                                              .getTextSizeMedium(
-                                                                  context),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                            itemBuilder: (context, index) => PokeTeamCard(
+                                  pokemon: pokeTeam[index],
+                                  pokeCubit: pokeCubit,
                                 ),
                             separatorBuilder: (context, index) => SizedBox(
                                   height: PokeConstants.getMediaQuery(context)
@@ -258,7 +102,7 @@ class PokeTeam extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize:
-                                  PokeConstants.getTextSizeSmall(context)),
+                                  PokeConstants.getTextSizeMedium(context)),
                         ),
                       ),
                 SizedBox(
@@ -270,7 +114,10 @@ class PokeTeam extends StatelessWidget {
                       child: InkWell(
                         onTap: () => Navigator.pop(context),
                         child: Container(
-                          color: Colors.cyan,
+                          decoration: BoxDecoration(
+                            color: Colors.cyan,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           height:
                               PokeConstants.getMediaQuery(context).width * 0.07,
                           child: Center(
