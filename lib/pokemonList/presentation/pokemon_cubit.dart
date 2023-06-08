@@ -40,8 +40,31 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   void addPokemon(Pokemon pokemon) {
     if (pokemonTeam.length < 5) {
+      if (!pokemonTeam.contains(pokemon) && !pokemon.isAdded) {
+        pokemonTeam.add(pokemon);
+        emit(PokemonAdded(pokemonTeam.length));
+      } else {
+        emit(PokemonError());
+      }
+    } else {
+      emit(PokemonError());
+    }
+  }
+
+  void deletePokemon(Pokemon pokemon) {
+    pokemonTeam.removeWhere((element) => element.name == pokemon.name);
+    emit(PokemonAdded(pokemonTeam.length));
+    if (pokemonTeam.length < 5) {
+      emit(PokemonLoaded(pokemonList, false));
+    } else {
+      emit(PokemonLoaded(pokemonList, true));
+    }
+  }
+
+  void updatePokemonList(Pokemon pokemon, bool isBeingAdded) {
+    if (isBeingAdded) {
       final indexToRemove =
-          pokemonList.indexWhere((element) => element.name == pokemon.name);
+      pokemonList.indexWhere((element) => element.name == pokemon.name);
       pokemonList.removeAt(indexToRemove);
       pokemonList.insert(
         indexToRemove,
@@ -52,34 +75,20 @@ class PokemonCubit extends Cubit<PokemonState> {
             types: pokemon.types,
             isAdded: true),
       );
-      if (!pokemonTeam.contains(pokemon)) {
-        pokemonTeam.add(pokemon);
-        emit(PokemonAdded(pokemonTeam.length));
-      }
-    }
-    if (pokemonTeam.length < 5) {
-      emit(PokemonLoaded(pokemonList, false));
     } else {
-      emit(PokemonLoaded(pokemonList, true));
+      final indexToRemove =
+      pokemonList.indexWhere((element) => element.name == pokemon.name);
+      pokemonList.removeAt(indexToRemove);
+      pokemonList.insert(
+        indexToRemove,
+        Pokemon(
+            name: pokemon.name,
+            url: pokemon.url,
+            sprites: pokemon.sprites,
+            types: pokemon.types,
+            isAdded: false),
+      );
     }
-  }
-
-  void deletePokemon(Pokemon pokemon) {
-    final indexToRemove =
-        pokemonList.indexWhere((element) => element.name == pokemon.name);
-    pokemonList.removeAt(indexToRemove);
-    pokemonList.insert(
-      indexToRemove,
-      Pokemon(
-          name: pokemon.name,
-          url: pokemon.url,
-          sprites: pokemon.sprites,
-          types: pokemon.types,
-          isAdded: false),
-    );
-    pokemonTeam.removeWhere((element) => element.name == pokemon.name);
-    emit(PokemonAdded(pokemonTeam.length));
-    emit(PokemonDeleted(pokemonTeam));
     if (pokemonTeam.length < 5) {
       emit(PokemonLoaded(pokemonList, false));
     } else {

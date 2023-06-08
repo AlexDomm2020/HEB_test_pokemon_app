@@ -7,13 +7,8 @@ class Pokemon {
   List<Type>? types;
   bool isAdded;
 
-  Pokemon({
-    this.name,
-    this.url,
-    this.sprites,
-    this.types,
-    this.isAdded = false
-  });
+  Pokemon(
+      {this.name, this.url, this.sprites, this.types, this.isAdded = false});
 
   factory Pokemon.fromRawJson(String str) => Pokemon.fromJson(json.decode(str));
 
