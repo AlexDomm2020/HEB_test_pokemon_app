@@ -10,7 +10,8 @@ class PokeTeam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pokeTeam = context.read<PokemonCubit>().getPokemonTeam();
+    final pokeCubit = context.read<PokemonCubit>();
+    final pokeTeam = pokeCubit.getPokemonTeam();
     return AlertDialog(
       content: SizedBox(
         height: PokeConstants.getMediaQuery(context).height * 0.6,
@@ -58,7 +59,8 @@ class PokeTeam extends StatelessWidget {
                                                   state.pokeList[index].name!,
                                                   style: TextStyle(
                                                     fontSize: PokeConstants
-                                                                .getTextSizeMedium(context),
+                                                        .getTextSizeMedium(
+                                                            context),
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -71,10 +73,11 @@ class PokeTeam extends StatelessWidget {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    context
-                                                        .read<PokemonCubit>()
-                                                        .deletePokemon(
-                                                            pokeTeam[index]);
+                                                    pokeCubit.deletePokemon(
+                                                        state.pokeList[index]);
+                                                    pokeCubit.updatePokemonList(
+                                                        state.pokeList[index],
+                                                        false);
                                                   },
                                                   child: Container(
                                                     color: Colors.red[700],
@@ -91,7 +94,8 @@ class PokeTeam extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: PokeConstants
-                                                                        .getTextSizeMedium(context),
+                                                                .getTextSizeMedium(
+                                                                    context),
                                                           ),
                                                         ),
                                                       ),
@@ -137,7 +141,8 @@ class PokeTeam extends StatelessWidget {
                               child: Text(
                                 PokeStrings.cerrar,
                                 style: TextStyle(
-                                  fontSize: PokeConstants.getTextSizeMedium(context),
+                                  fontSize:
+                                      PokeConstants.getTextSizeMedium(context),
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -191,7 +196,8 @@ class PokeTeam extends StatelessWidget {
                                                 pokeTeam[index].name!,
                                                 style: TextStyle(
                                                   fontSize: PokeConstants
-                                                              .getTextSizeMedium(context),
+                                                      .getTextSizeMedium(
+                                                          context),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -204,10 +210,10 @@ class PokeTeam extends StatelessWidget {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  context
-                                                      .read<PokemonCubit>()
-                                                      .deletePokemon(
-                                                          pokeTeam[index]);
+                                                  pokeCubit.updatePokemonList(
+                                                      pokeTeam[index], false);
+                                                  pokeCubit.deletePokemon(
+                                                      pokeTeam[index]);
                                                 },
                                                 child: Container(
                                                   color: Colors.red[700],
@@ -224,7 +230,8 @@ class PokeTeam extends StatelessWidget {
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: PokeConstants
-                                                                      .getTextSizeMedium(context),
+                                                              .getTextSizeMedium(
+                                                                  context),
                                                         ),
                                                       ),
                                                     ),
