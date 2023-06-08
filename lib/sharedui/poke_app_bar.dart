@@ -56,7 +56,7 @@ class _PokeAppBarState extends State<PokeAppBar> {
                     ),
                     child: BlocListener<PokemonCubit, PokemonState>(
                       listener: (context, state) {
-                        if (state is PokemonAdded) {
+                        if (state is PokemonCount) {
                           pokemonCount = state.pokeCount;
                           setState(() {});
                         }
