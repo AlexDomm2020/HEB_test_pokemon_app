@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:heb_test_pokemon_app/apputils/poke_color_generator.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_constants.dart';
 import 'package:heb_test_pokemon_app/apputils/poke_strings.dart';
 import 'package:heb_test_pokemon_app/pokemonList/presentation/pokemon_cubit.dart';
@@ -154,7 +155,7 @@ class PokeMainCard extends StatelessWidget {
 
   Widget _skill(BuildContext context, String typeName) {
     return Container(
-      color: Colors.purple,
+      color: PokeColorGenerator.getColorByType(typeName),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
