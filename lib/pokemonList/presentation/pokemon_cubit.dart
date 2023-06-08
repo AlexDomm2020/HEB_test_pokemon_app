@@ -42,7 +42,7 @@ class PokemonCubit extends Cubit<PokemonState> {
     if (pokemonTeam.length < 5) {
       if (!pokemonTeam.contains(pokemon) && !pokemon.isAdded) {
         pokemonTeam.add(pokemon);
-        emit(PokemonAdded(pokemonTeam.length));
+        emit(PokemonCount(pokemonTeam.length));
       } else {
         emit(PokemonError());
       }
@@ -53,7 +53,10 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   void deletePokemon(Pokemon pokemon) {
     pokemonTeam.removeWhere((element) => element.name == pokemon.name);
-    emit(PokemonAdded(pokemonTeam.length));
+    emit(PokemonCount(pokemonTeam.length));
+    if(pokemonTeam.isEmpty){
+      emit(PokemonTeamEmpty());
+    }
     if (pokemonTeam.length < 5) {
       emit(PokemonLoaded(pokemonList, false));
     } else {

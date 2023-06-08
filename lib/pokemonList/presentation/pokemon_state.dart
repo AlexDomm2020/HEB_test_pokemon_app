@@ -14,7 +14,6 @@ class PokemonLoading extends PokemonState {
   List<Pokemon> lastPokemonList;
   bool isPokemonTeamFull;
 
-
   @override
   List<Object?> get props => [lastPokemonList, isPokemonTeamFull];
 }
@@ -34,8 +33,8 @@ class PokemonError extends PokemonState {
   List<Object?> get props => [];
 }
 
-class PokemonAdded extends PokemonState {
-  PokemonAdded(this.pokeCount);
+class PokemonCount extends PokemonState {
+  PokemonCount(this.pokeCount);
 
   int pokeCount;
 
@@ -52,4 +51,10 @@ class PokemonDeleted extends PokemonState {
   @override
   // TODO: implement props
   List<Object?> get props => [pokeList];
+}
+
+class PokemonTeamEmpty extends PokemonState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }
