@@ -66,18 +66,20 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   void updatePokemonList(Pokemon pokemon, bool isBeingAdded) {
     if (isBeingAdded) {
-      final indexToRemove =
-      pokemonList.indexWhere((element) => element.name == pokemon.name);
-      pokemonList.removeAt(indexToRemove);
-      pokemonList.insert(
-        indexToRemove,
-        Pokemon(
-            name: pokemon.name,
-            url: pokemon.url,
-            sprites: pokemon.sprites,
-            types: pokemon.types,
-            isAdded: true),
-      );
+      // if(pokemonTeam.length <= 5){
+        final indexToRemove =
+        pokemonList.indexWhere((element) => element.name == pokemon.name);
+        pokemonList.removeAt(indexToRemove);
+        pokemonList.insert(
+          indexToRemove,
+          Pokemon(
+              name: pokemon.name,
+              url: pokemon.url,
+              sprites: pokemon.sprites,
+              types: pokemon.types,
+              isAdded: true),
+        );
+      // }
     } else {
       final indexToRemove =
       pokemonList.indexWhere((element) => element.name == pokemon.name);

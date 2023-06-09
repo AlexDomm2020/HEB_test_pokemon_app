@@ -96,12 +96,12 @@ class PokeMainCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: InkWell(
-                      onTap: () {
+                      onTap: !isPokemonTeamFull ? () {
                         context.read<PokemonCubit>().addPokemon(pokemon!);
                         context
                             .read<PokemonCubit>()
                             .updatePokemonList(pokemon!, true);
-                      },
+                      } : (){},
                       child: Container(
                         decoration: BoxDecoration(
                           color: !pokemon!.isAdded && !isPokemonTeamFull
